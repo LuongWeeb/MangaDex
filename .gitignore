@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+mobile/node_modules/
+
+# Environment Variables (Secrets)
+.env
+.env.local
+mobile/.env
+
+# Expo & Mobile
+.expo/
+mobile/.expo/
+web-build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files & Large video files
+document/demo_frames/
+document/demo.mp4
+
+# OS generated files
+.DS_Store
+Thumbs.db

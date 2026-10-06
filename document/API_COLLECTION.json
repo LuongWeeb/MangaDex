@@ -1,0 +1,179 @@
+{
+  "info": {
+    "_postman_id": "9f288c01-4ed5-4a47-9b04-b5f31b1dc684",
+    "name": "MangaDex API v1",
+    "description": "Collection cho Web/Mobile API. Các endpoint /api/v1 trả response chuẩn: { success, message, data/errors }.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "storyId", "value": "1" },
+    { "key": "storySlug", "value": "tien-nghich" },
+    { "key": "chapterId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Đăng ký",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"mobile_reader\",\n  \"email\": \"mobile_reader@example.com\",\n  \"password\": \"secret123\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/api/v1/auth/register"
+          }
+        },
+        {
+          "name": "Đăng nhập",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"usernameOrEmail\": \"docgia_01\",\n  \"password\": \"123456\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/api/v1/auth/login"
+          },
+          "event": [{ "listen": "test", "script": { "exec": ["const body = pm.response.json();", "if (body.success && body.data.token) pm.collectionVariables.set('token', body.data.token);"] } }]
+        },
+        {
+          "name": "Thông tin tài khoản hiện tại",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/v1/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stories",
+      "item": [
+        {
+          "name": "Danh sách truyện có phân trang và bộ lọc",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stories?page=1&limit=18&sort=latest&status=all"
+          }
+        },
+        {
+          "name": "Chi tiết truyện theo slug",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stories/slug/{{storySlug}}"
+          }
+        },
+        {
+          "name": "Xếp hạng theo lượt xem",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stories?page=1&limit=10&sort=views&status=all"
+          }
+        },
+        {
+          "name": "Tìm kiếm truyện",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stories?page=1&limit=18&search=tien&sort=latest&status=all"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reader",
+      "item": [
+        {
+          "name": "Danh sách chương của truyện",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/chapters?story_id={{storyId}}"
+          }
+        },
+        {
+          "name": "Ảnh chương truyện tranh",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/chapter_images?chapter_id={{chapterId}}"
+          }
+        },
+        {
+          "name": "Lưu lịch sử đọc",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"storyId\": {{storyId}},\n  \"chapterId\": {{chapterId}}\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/api/v1/me/history"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Uploader",
+      "item": [
+        {
+          "name": "Tạo truyện kèm ảnh bìa",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Truyện mới từ Mobile", "type": "text" },
+                { "key": "new_author_name", "value": "Tác giả Mobile", "type": "text" },
+                { "key": "category_ids", "value": "[1]", "type": "text" },
+                { "key": "description", "value": "Mô tả truyện được gửi qua API mobile.", "type": "text" },
+                { "key": "cover_file", "type": "file", "src": [] }
+              ]
+            },
+            "url": "{{baseUrl}}/api/v1/uploader/stories"
+          }
+        },
+        {
+          "name": "Tạo chương kèm ảnh truyện tranh",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "story_id", "value": "{{storyId}}", "type": "text" },
+                { "key": "chapter_number", "value": "1", "type": "text" },
+                { "key": "title", "value": "Chương 1", "type": "text" },
+                { "key": "images", "value": "[]", "type": "text" },
+                { "key": "chapter_images", "type": "file", "src": [] }
+              ]
+            },
+            "url": "{{baseUrl}}/api/v1/uploader/chapters"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Thống kê dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/v1/admin/stats"
+          }
+        },
+        {
+          "name": "Duyệt truyện",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"approval_status\": \"Đã duyệt\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/api/v1/admin/stories/{{storyId}}/approval"
+          }
+        }
+      ]
+    }
+  ]
+}

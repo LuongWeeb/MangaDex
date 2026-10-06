@@ -1,0 +1,118 @@
+const fs = require('fs');
+const path = require('path');
+const db = require('../common/db');
+
+const outDir = path.join(__dirname, '../public/images/chapters');
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir, { recursive: true });
+}
+
+function makeMangaSvg(pageNumber, title, sceneDesc, dialogue) {
+  return `<svg width="800" height="1150" viewBox="0 0 800 1150" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1e293b" />
+  <rect x="20" y="20" width="760" height="1110" fill="#0f172a" stroke="#334155" stroke-width="4" rx="8" />
+  
+  <!-- Header Panel -->
+  <rect x="40" y="40" width="720" height="70" fill="#1e1b4b" rx="6" />
+  <text x="60" y="82" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#38bdf8">ONE PIECE - CHAPTER 1: ROMANCE DAWN</text>
+  <text x="730" y="82" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#94a3b8" text-anchor="end">Trang ${pageNumber} / 4</text>
+  
+  <!-- Main Comic Panel 1 -->
+  <rect x="40" y="130" width="720" height="440" fill="#1e293b" stroke="#475569" stroke-width="3" rx="6" />
+  <circle cx="400" cy="330" r="120" fill="#312e81" opacity="0.5" />
+  <text x="400" y="300" font-family="Arial, sans-serif" font-size="72" text-anchor="middle">🏴‍☠️</text>
+  <text x="400" y="370" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#fbbf24" text-anchor="middle">${title}</text>
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1" text-anchor="middle">${sceneDesc}</text>
+
+  <!-- Dialogue Bubble 1 -->
+  <rect x="80" y="160" width="340" height="75" fill="#ffffff" rx="18" />
+  <polygon points="120,235 100,265 150,235" fill="#ffffff" />
+  <text x="250" y="205" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle">${dialogue[0]}</text>
+
+  <!-- Panel 2 (Bottom Left) -->
+  <rect x="40" y="590" width="345" height="480" fill="#1e293b" stroke="#475569" stroke-width="3" rx="6" />
+  <text x="212" y="800" font-family="Arial, sans-serif" font-size="56" text-anchor="middle">👒</text>
+  <text x="212" y="870" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f43f5e" text-anchor="middle">Monkey D. Luffy</text>
+  <!-- Dialogue Bubble 2 -->
+  <rect x="65" y="620" width="295" height="75" fill="#ffffff" rx="16" />
+  <text x="212" y="662" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#0f172a" text-anchor="middle">${dialogue[1]}</text>
+
+  <!-- Panel 3 (Bottom Right) -->
+  <rect x="415" y="590" width="345" height="480" fill="#1e293b" stroke="#475569" stroke-width="3" rx="6" />
+  <text x="587" y="800" font-family="Arial, sans-serif" font-size="56" text-anchor="middle">🌊</text>
+  <text x="587" y="870" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#38bdf8" text-anchor="middle">Đại Hải Trình Vẫy Gọi</text>
+  <!-- Dialogue Bubble 3 -->
+  <rect x="440" y="620" width="295" height="75" fill="#ffffff" rx="16" />
+  <text x="587" y="662" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#0f172a" text-anchor="middle">${dialogue[2]}</text>
+
+  <!-- Footer Watermark -->
+  <text x="400" y="1105" font-family="Arial, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">MangaDex Reader • Đọc Truyện Tranh Webtoon Bản Quyền</text>
+</svg>`;
+}
+
+const pages = [
+  {
+    page: 1,
+    title: 'KHỞI ĐẦU HUYỀN THOẠI',
+    desc: 'Làng Cối Xay Gió - Nơi ước mơ hải tặc bắt đầu',
+    dialogue: [
+      '"Ta sẽ trở thành Vua Hải Tặc!"',
+      '"Shanks! Cho cháu theo với!"',
+      '"Biển cả ngoài kia nguy hiểm lắm nhóc!"'
+    ]
+  },
+  {
+    page: 2,
+    title: 'TRÁI ÁC QUỶ GOMU GOMU',
+    desc: 'Bí mật về chiếc rương kho báu của băng Tóc Đỏ',
+    dialogue: [
+      '"Luffy, cháu vừa ăn thứ gì trong rương?"',
+      '"Nó dở tệ! Nhưng người cháu dãn ra kìa!"',
+      '"Đó là Trái Gomu Gomu huyền thoại!"'
+    ]
+  },
+  {
+    page: 3,
+    title: 'LỜI HỨA CHIẾC MŨ RƠM',
+    desc: 'Sự hy sinh cánh tay và bài học về biển cả',
+    dialogue: [
+      '"Cứ cười nhạo ta, nhưng đừng đụng bạn ta!"',
+      '"Chiếc mũ này hãy giữ lấy, Luffy!"',
+      '"Một ngày nào đó hãy trả lại cho ta!"'
+    ]
+  },
+  {
+    page: 4,
+    title: 'RA KHƠI CHINH PHỤC ĐẠI DƯƠNG',
+    desc: 'Mười năm sau... Thiếu niên Mũ Rơm bắt đầu hành trình',
+    dialogue: [
+      '"Thời tiết thật đẹp để ra khơi!"',
+      '"Mục tiêu đầu tiên: Tìm 10 đồng đội!"',
+      '"TIẾN LÊN HẢI TRÌNH GRAND LINE!"'
+    ]
+  }
+];
+
+pages.forEach(p => {
+  const filePath = path.join(outDir, `op_${p.page}.svg`);
+  fs.writeFileSync(filePath, makeMangaSvg(p.page, p.title, p.desc, p.dialogue).trim());
+  console.log('✅ Đã tạo ảnh comic trang', p.page);
+});
+
+// Chèn dữ liệu vào MySQL chapter_images
+const insertSql = 'INSERT INTO chapter_images (chapter_id, image_url, order_index) VALUES (?, ?, ?)';
+
+db.query('DELETE FROM chapter_images WHERE chapter_id = 6', (delErr) => {
+  if (delErr) console.error(delErr);
+  let done = 0;
+  pages.forEach(p => {
+    db.query(insertSql, [6, `/images/chapters/op_${p.page}.svg`, p.page], (err) => {
+      if (err) console.error(err);
+      done++;
+      if (done === pages.length) {
+        console.log('🎉 Đã nạp thành công 4 trang truyện tranh One Piece Chapter 1 vào MySQL!');
+        process.exit(0);
+      }
+    });
+  });
+});

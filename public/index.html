@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MangaDex - Đọc Truyện Tranh & Tiểu Thuyết Online Hàng Đầu</title>
+  <meta name="description" content="MangaDex - nền tảng đọc truyện tranh và tiểu thuyết online hiện đại, cập nhật nhanh, tối ưu trải nghiệm đọc.">
+  <meta property="og:title" content="MangaDex - Đọc Truyện Tranh & Tiểu Thuyết Online Hàng Đầu">
+  <meta property="og:description" content="Khám phá MangaDex với Dark Mode dịu mắt, trình đọc mượt mà và kho truyện được cập nhật liên tục.">
+  <meta property="og:image" content="/images/covers/default-cover.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/">
+  <link id="canonicalUrl" rel="canonical" href="/">
+
+  <!-- Google Fonts: Quicksand (Chuẩn tiếng Việt, mềm mại, hiện đại) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" href="/images/covers/default-cover.svg" type="image/svg+xml">
+</head>
+<body>
+  <!-- SVG sprite: every interface icon inherits currentColor for theme consistency. -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5zM4 5.5v16"/><path d="M8 7h8M8 11h6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-3.5-6 3.5z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.7-8.8 10.4-8.8 10.4S3.2 14.3 3.2 8.6A4.6 4.6 0 0 1 12 6.7a4.6 4.6 0 0 1 8.8 1.9z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m4 20 4.2-1 10.7-10.7a2.1 2.1 0 0 0-3-3L5.2 16zM13.5 7.7l3 3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7M7 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+
+  <!-- HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="header-container">
+      <button class="mobile-menu-trigger btn-icon" type="button" aria-label="Mở menu" onclick="toggleMobileDrawer()"><svg class="icon"><use href="#i-menu"/></svg></button>
+      <a href="/" class="brand-logo" id="brandLogo">
+        <div class="brand-icon"><svg class="icon icon-brand"><use href="#i-book"/></svg></div>
+        <span class="brand-text">MangaDex</span>
+      </a>
+
+      <!-- Thanh tìm kiếm thời gian thực -->
+      <div class="search-box">
+        <span class="search-icon"><svg class="icon"><use href="#i-search"/></svg></span>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Tìm tên truyện, tác giả, tên khác..." 
+          autocomplete="off"
+        />
+        <div id="searchQuickResults" class="search-quick-results" role="listbox" aria-label="Kết quả tìm kiếm nhanh" hidden></div>
+      </div>
+
+      <!-- Nút chức năng -->
+      <div class="nav-actions">
+        <button class="mobile-search-trigger btn-icon" type="button" aria-label="Tìm truyện" onclick="openAdvancedSearch()"><svg class="icon"><use href="#i-search"/></svg></button>
+        <button id="themeToggleBtn" class="btn-icon" title="Chuyển chế độ Sáng / Tối" onclick="toggleTheme()">
+          <svg class="icon"><use href="#i-moon"/></svg>
+        </button>
+        <button class="btn-icon" title="Tủ truyện & Lịch sử đọc" onclick="openLibraryModal()">
+          <svg class="icon"><use href="#i-bookmark"/></svg>
+        </button>
+        <div id="userHeaderArea">
+          <button class="btn-primary" onclick="openAuthModal('login')">
+            <span>Đăng Nhập</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MANGADEX MAIN NAVIGATION -->
+  <nav class="main-nav-bar" id="mainNavBar">
+    <div class="main-nav-container">
+      <button class="main-nav-link active" id="navHomeBtn" onclick="navigateToHome()">
+        Trang Chủ
+      </button>
+
+      <!-- Dropdown Thể Loại (Mega Menu rộng chuẩn TruyenQQ) -->
+      <div class="nav-dropdown has-mega" id="navCategoryDropdownWrapper">
+        <button class="main-nav-link" type="button" id="navCategoryToggleBtn">
+          Thể Loại ▾
+        </button>
+        <div class="nav-dropdown-mega" id="navCategoryMegaMenu">
+          <div class="nav-dropdown-mega-container" id="navCategoriesMenu">
+            <!-- 47 thể loại được render động thành 8 cột -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown Xếp Hạng (Sub-bar chuẩn TruyenQQ) -->
+      <div class="nav-dropdown has-mega" id="navRankingDropdownWrapper">
+        <button class="main-nav-link" type="button" id="navRankingToggleBtn">
+          Xếp Hạng ▾
+        </button>
+        <div class="nav-dropdown-ranking" id="navRankingMenu">
+          <div class="nav-dropdown-ranking-container">
+            <button class="ranking-bar-link" onclick="navigateToRanking('top-day', 'Top Ngày')">Top Ngày</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('top-week', 'Top Tuần')">Top Tuần</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('top-month', 'Top Tháng')">Top Tháng</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('likes', 'Yêu Thích')">Yêu Thích</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('latest', 'Mới Cập Nhật')">Mới Cập Nhật</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('newest', 'Truyện Mới')">Truyện Mới</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('completed', 'Truyện Full')">Truyện Full</button>
+            <button class="ranking-bar-link" onclick="navigateToRanking('random', 'Truyện Ngẫu Nhiên')">Truyện Ngẫu Nhiên</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="main-nav-link" onclick="openAdvancedSearch()">
+        Tìm Truyện
+      </button>
+      <button class="main-nav-link" onclick="openLibraryModalWithTab('history')">
+        Lịch Sử
+      </button>
+      <button class="main-nav-link" onclick="openLibraryModalWithTab('follows')">
+        Theo Dõi
+      </button>
+      <button class="main-nav-link" onclick="navigateToCategoryBySlug('manhwa', 'Manhwa')">
+        Manhwa
+      </button>
+      <button class="main-nav-link" onclick="navigateToCategoryBySlug('manga', 'Manga')">
+        Manga
+      </button>
+      <button class="main-nav-link" onclick="navigateToCategoryBySlug('manhua', 'Manhua')">
+        Manhua
+      </button>
+      <button class="main-nav-link" onclick="navigateToCategoryBySlug('tien-hiep', 'Truyện Chữ')">
+        Truyện Chữ
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop" onclick="closeMobileDrawer()"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Điều hướng di động" aria-hidden="true">
+    <div class="mobile-drawer-header"><strong>MangaDex</strong><button class="btn-icon" type="button" onclick="closeMobileDrawer()" aria-label="Đóng menu"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <button class="mobile-drawer-link" onclick="navigateToHome(); closeMobileDrawer()"><svg class="icon"><use href="#i-home"/></svg>Trang chủ</button>
+    <button class="mobile-drawer-link" onclick="openAdvancedSearch(); closeMobileDrawer()"><svg class="icon"><use href="#i-search"/></svg>Tìm kiếm nâng cao</button>
+    <button class="mobile-drawer-link" onclick="navigateToRanking('top-day', 'Top Ngày'); closeMobileDrawer()"><svg class="icon"><use href="#i-chart"/></svg>Xếp hạng</button>
+    <button class="mobile-drawer-link" onclick="toggleTheme()"><svg class="icon"><use href="#i-moon"/></svg>Đổi chế độ sáng/tối</button>
+    <div class="mobile-drawer-label">THỂ LOẠI</div>
+    <div class="mobile-drawer-categories" id="mobileDrawerCategories"></div>
+    <button class="mobile-drawer-link" onclick="openUploaderModal(); closeMobileDrawer()"><svg class="icon"><use href="#i-pen"/></svg>Kênh đăng truyện</button>
+  </aside>
+
+  <div class="app-page active" id="homePageView">
+  <!-- HERO BANNER TIÊU ĐIỂM (CHỈ HIỂN THỊ Ở TRANG CHỦ) -->
+  <section class="hero-section" id="heroSection">
+    <div class="hero-banner">
+      <div class="hero-content">
+        <span class="hero-badge">TRUYỆN ĐANG HOT NHẤT HÔM NAY</span>
+        <h1 class="hero-title" id="heroTitle">Tiên Nghịch</h1>
+        <p class="hero-desc" id="heroDesc">
+          Một thiếu niên bình phàm bước lên con đường tu tiên nghịch thiên cải mệnh, trải qua muôn vàn trắc trở, từng bước chứng minh ý chí sắt đá.
+        </p>
+        <div class="hero-cta">
+          <button id="heroReadBtn" class="btn-primary">
+            <svg class="icon"><use href="#i-book"/></svg><span>Đọc Ngay</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEDICATED PAGE HEADER (HIỂN THỊ KHI QUA TRANG THỂ LOẠI HOẶC BẢNG XẾP HẠNG) -->
+  <section class="page-header-section" id="pageHeaderSection" style="display: none;">
+    <div class="page-header-container">
+      <!-- Breadcrumbs navigation (giống TruyenQQ: Trang Chủ / Thể Loại / Action) -->
+      <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+        <a href="javascript:void(0)" onclick="navigateToHome()" class="breadcrumb-link">Trang Chủ</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-sec" id="breadcrumbType">Thể Loại</span>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current" id="breadcrumbName">Action</span>
+      </nav>
+
+      <!-- Banner Info Box -->
+      <div class="category-banner-card">
+        <div class="category-banner-info">
+          <div class="category-banner-badge" id="pageTypeBadge">THỂ LOẠI</div>
+          <h1 class="category-banner-title" id="pageHeaderTitle">Thể Loại: Action</h1>
+          <p class="category-banner-desc" id="pageHeaderDesc">
+            Danh sách các bộ truyện đặc sắc, cập nhật liên tục nhanh nhất.
+          </p>
+        </div>
+        <div class="category-banner-stats">
+          <div class="stat-pill">
+            <span class="stat-count" id="pageStoryCount">0</span>
+            <span class="stat-label">Bộ truyện</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Filter & Sort Toolbar -->
+      <div class="page-filter-toolbar">
+        <div class="filter-tab-group" id="sortFilterGroup">
+          <span class="filter-group-label">Sắp xếp:</span>
+          <button class="filter-pill active" data-sort="latest" onclick="setSubSort('latest')">Mới Cập Nhật</button>
+          <button class="filter-pill" data-sort="views" onclick="setSubSort('views')">Lượt Xem</button>
+          <button class="filter-pill" data-sort="likes" onclick="setSubSort('likes')">Yêu Thích</button>
+          <button class="filter-pill" data-sort="name" onclick="setSubSort('name')">Tên A-Z</button>
+        </div>
+
+        <div class="filter-tab-group" id="statusFilterGroup">
+          <span class="filter-group-label">Trạng thái:</span>
+          <button class="filter-pill active" data-status="all" onclick="setSubStatus('all')">Tất Cả</button>
+          <button class="filter-pill" data-status="ongoing" onclick="setSubStatus('ongoing')">Đang Tiến Hành</button>
+          <button class="filter-pill" data-status="completed" onclick="setSubStatus('completed')">Hoàn Thành</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTAINER (LƯỚI TRUYỆN & SIDEBAR BXH) -->
+  <main class="main-container">
+    
+    <!-- Cột chính: Danh sách truyện -->
+    <section>
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h2 class="section-title" id="storiesSectionTitle">Truyện Mới Cập Nhật</h2>
+        <button id="clearFilterBtn" style="display: none; padding: 0.35rem 0.85rem; font-size: 0.82rem;" class="btn-secondary" onclick="selectCategory('all', 'Tất Cả')">
+          Bỏ Lọc Thể Loại
+        </button>
+      </div>
+      <div class="stories-grid" id="storiesGrid">
+        <!-- Render động từ API /stories -->
+      </div>
+      <div id="storiesPagination"></div>
+    </section>
+
+    <!-- Cột phụ: Bảng xếp hạng -->
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <h3 class="widget-title"><svg class="icon"><use href="#i-chart"/></svg>Top Lượt Đọc Nhiều Nhất</h3>
+        <div class="ranking-list" id="rankingList">
+          <!-- Render động từ API -->
+        </div>
+      </div>
+
+      <div class="sidebar-widget" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);">
+        <h3 class="widget-title">Mẹo Nhỏ Đọc Truyện</h3>
+        <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+          Bạn có thể chuyển giao diện sáng/tối trên thanh menu hoặc tùy chỉnh nền <strong>Vàng Sepia</strong> khi đọc để mắt dịu hơn vào ban đêm.
+        </p>
+      </div>
+    </aside>
+
+  </main>
+
+  </div>
+
+  <!-- ADVANCED SEARCH PAGE -->
+  <section class="app-page advanced-search-page" id="advancedSearchPageView">
+    <div class="page-shell">
+      <div class="page-title-row advanced-search-title-row">
+        <div><p class="eyebrow">MANGADEX DISCOVERY</p><h1>🔍 Tìm Kiếm Truyện Nâng Cao</h1><p class="advanced-search-subtitle">Kết hợp thể loại, trạng thái và số chương để tìm đúng bộ truyện bạn muốn đọc.</p></div>
+        <div class="page-title-actions"><button class="btn-secondary" type="button" onclick="toggleAdvancedFilters()">Ẩn / Hiện bộ lọc</button><button class="btn-secondary" type="button" onclick="resetAdvancedSearch()">Reset</button></div>
+      </div>
+      <div class="advanced-filter-panel" id="advancedFilterPanel">
+        <div class="tri-state-guide" aria-label="Hướng dẫn lọc thể loại"><span class="guide-item include">✔ Bắt buộc có</span><span class="guide-item exclude">✕ Loại trừ</span><span class="guide-item none">□ Bỏ qua</span><span>Chạm một thể loại để xoay vòng trạng thái.</span></div>
+        <div class="advanced-search-keyword"><label for="advancedSearchKeyword">Tên truyện</label><input id="advancedSearchKeyword" class="search-input" type="search" placeholder="Nhập tên truyện hoặc tên khác..." /></div>
+        <div class="advanced-category-grid" id="advancedCategoryGrid"></div>
+        <div class="advanced-select-grid">
+          <label>Quốc gia<select id="advancedCountry"><option value="all">Tất cả</option><option value="china">Trung Quốc (Manhua)</option><option value="japan">Nhật Bản (Manga)</option><option value="korea">Hàn Quốc (Manhwa)</option><option value="vietnam">Việt Nam</option></select></label>
+          <label>Tình trạng<select id="advancedStatus"><option value="all">Tất cả</option><option value="ongoing">Đang tiến hành</option><option value="completed">Hoàn thành</option></select></label>
+          <label>Số lượng chương<select id="advancedMinChapters"><option value="0">Tất cả</option><option value="1">&gt; 0</option><option value="10">≥ 10 chương</option><option value="50">≥ 50 chương</option><option value="100">≥ 100 chương</option></select></label>
+          <label>Sắp xếp theo<select id="advancedSort"><option value="latest">Ngày cập nhật giảm dần</option><option value="views">Lượt xem nhiều nhất</option><option value="follows">Lượt theo dõi</option><option value="likes">Lượt thích</option><option value="title">Tên A-Z</option></select></label>
+        </div>
+        <div class="advanced-search-actions"><button class="btn-primary" type="button" onclick="performAdvancedSearch(1)"><svg class="icon"><use href="#i-search"/></svg>Tìm Kiếm</button></div>
+      </div>
+      <div class="advanced-results-heading"><h2 id="advancedResultsTitle">Khám phá truyện</h2><span id="advancedResultsCount">Chọn điều kiện rồi nhấn Tìm Kiếm</span></div>
+      <div class="stories-grid" id="advancedStoriesGrid"></div>
+      <div id="advancedStoriesPagination"></div>
+    </div>
+  </section>
+
+  <!-- DEDICATED STORY PAGE -->
+  <section class="app-page story-detail-page" id="storyDetailPageView">
+    <div class="page-shell story-page-shell">
+      <nav class="breadcrumb-trail" aria-label="Breadcrumb"><button class="breadcrumb-link" onclick="navigateToHome()"><svg class="icon"><use href="#i-arrow-left"/></svg>Trang Chủ</button><span class="breadcrumb-sep">/</span><span id="storyBreadcrumbCategory">Truyện</span><span class="breadcrumb-sep">/</span><span id="storyBreadcrumbTitle">Chi tiết</span></nav>
+      
+      <div class="modal-hero">
+        <img id="modalCover" class="modal-cover" src="/images/covers/default-cover.svg" alt="Bìa truyện" onerror="this.onerror=null; this.src='/images/covers/default-cover.svg';" />
+        <div class="modal-details">
+          <h2 id="modalTitle" class="modal-title">Tiêu Đề Truyện</h2>
+          <div id="modalOtherName" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;"></div>
+          
+          <div class="modal-meta">
+            <span id="modalStatus">Trạng thái</span>
+            <span id="modalViews"><svg class="icon"><use href="#i-eye"/></svg>0 lượt xem</span>
+            <span><svg class="icon"><use href="#i-star"/></svg>Đánh giá: 4.9/5</span>
+          </div>
+
+          <p id="modalDesc" class="modal-desc">Mô tả tóm tắt nội dung...</p>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="modalReadFirstBtn" class="btn-primary">
+              <svg class="icon"><use href="#i-book"/></svg><span>Đọc Từ Đầu</span>
+            </button>
+            <button id="modalLikeBtn" class="btn-secondary" onclick="handleLike()">
+              <svg class="icon"><use href="#i-heart"/></svg><span>Thích Truyện</span>
+            </button>
+            <button id="modalFollowBtn" class="btn-secondary" onclick="handleFollow()">
+              <svg class="icon"><use href="#i-star"/></svg><span>Theo Dõi</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danh sách chương -->
+      <div class="modal-chapters-section">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Danh Sách Chương</h3>
+        <div class="chapters-list" id="chaptersList">
+          <!-- Render danh sách chương từ API /chapters -->
+        </div>
+      </div>
+
+      <!-- Khu vực bình luận độc giả (Comments) -->
+      <div class="modal-comments-section" style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; justify-content: space-between;">
+          <span>Thảo Luận & Bình Luận</span>
+          <span id="modalCommentsCount" style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">(0 bình luận)</span>
+        </h3>
+        
+        <!-- Form gửi bình luận -->
+        <div class="comment-input-box" style="margin-bottom: 1.25rem;">
+          <textarea id="commentInput" rows="2" class="search-input" style="width: 100%; border-radius: 8px; padding: 0.75rem; resize: vertical;" placeholder="Chia sẻ cảm nghĩ của bạn về bộ truyện này..."></textarea>
+          <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+            <button class="btn-primary" onclick="submitComment()" style="padding: 0.45rem 1.25rem;">
+              <span>Gửi Bình Luận</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Danh sách bình luận -->
+        <div id="commentsList" style="display: flex; flex-direction: column; gap: 0.75rem; max-height: 250px; overflow-y: auto;">
+          <!-- Render động từ API /comments/story/:storyId -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- READER MODAL (MÀN HÌNH ĐỌC TRUYỆN CHUYÊN NGHIỆP) -->
+  <div class="reader-modal reader-theme-dark" id="readerModal">
+    <!-- Toolbar đọc truyện -->
+    <div class="reader-toolbar">
+      <div class="reader-context">
+        <button class="reader-tool-btn reader-back-btn" type="button" onclick="closeReader()" title="Quay lại trang truyện" aria-label="Quay lại trang truyện"><svg class="icon"><use href="#i-arrow-left"/></svg></button>
+        <div class="reader-title-group">
+          <div id="readerStoryTitle" class="reader-story-title">Tên Truyện</div>
+          <div id="readerChapterTitle" class="reader-chapter-title">Chương 1</div>
+        </div>
+        <span id="readerModeBadge" class="reader-mode-badge">MangaDex Reader</span>
+      </div>
+
+      <div class="reader-controls" aria-label="Tùy chỉnh trình đọc">
+        <label class="reader-control-label" for="readerChapterSelect">Chương</label>
+        <select id="readerChapterSelect" class="reader-chapter-select" onchange="jumpToChapter(this.value)" aria-label="Chọn chương"></select>
+        <div id="fontControls" class="reader-control-group" aria-label="Cỡ chữ">
+          <button class="reader-tool-btn reader-font-btn" type="button" onclick="adjustFontSize(-2)" title="Giảm cỡ chữ" aria-label="Giảm cỡ chữ">A<sup>−</sup></button>
+          <button class="reader-tool-btn reader-font-btn" type="button" onclick="adjustFontSize(2)" title="Tăng cỡ chữ" aria-label="Tăng cỡ chữ">A<sup>+</sup></button>
+        </div>
+        <div class="reader-control-group reader-theme-controls" aria-label="Chủ đề đọc">
+          <button class="reader-tool-btn" type="button" data-reader-theme="reader-theme-dark" onclick="setReaderTheme('reader-theme-dark')" title="Nền tối" aria-label="Nền tối"><svg class="icon"><use href="#i-moon"/></svg></button>
+          <button class="reader-tool-btn" type="button" data-reader-theme="reader-theme-sepia" onclick="setReaderTheme('reader-theme-sepia')" title="Nền sepia dịu mắt" aria-label="Nền sepia dịu mắt"><svg class="icon"><use href="#i-book"/></svg></button>
+          <button class="reader-tool-btn" type="button" data-reader-theme="reader-theme-light" onclick="setReaderTheme('reader-theme-light')" title="Nền sáng" aria-label="Nền sáng"><svg class="icon"><use href="#i-sun"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Thanh tiến trình cuộn đọc -->
+      <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: rgba(255, 255, 255, 0.1);">
+        <div id="readerProgressBar" style="height: 100%; width: 0%; transition: width 0.1s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Nội dung chương -->
+    <div class="reader-content-area" id="readerScrollArea" onscroll="handleReaderScroll()">
+      <!-- Chế độ 1: Truyện tranh Comic / Manga cuộn ảnh -->
+      <div class="comic-stream" id="comicStream" style="display: none;"></div>
+
+      <!-- Chế độ 2: Truyện chữ Tiểu thuyết / Novel -->
+      <article class="reader-body-text" id="readerBodyText">
+        <!-- Nội dung chương truyện chữ -->
+      </article>
+
+      <!-- Nút chuyển chương -->
+      <div class="reader-footer-nav">
+        <button id="prevChapterBtn" class="btn-secondary" onclick="changeChapter(-1)">
+          ← Chương Trước
+        </button>
+        <button id="nextChapterBtn" class="btn-primary" onclick="changeChapter(1)">
+          Chương Tiếp Theo →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng nhanh">
+    <button type="button" onclick="navigateToHome()"><svg class="icon"><use href="#i-home"/></svg><span>Trang Chủ</span></button>
+    <button type="button" onclick="openAdvancedSearch()"><svg class="icon"><use href="#i-search"/></svg><span>Tìm Kiếm</span></button>
+    <button type="button" onclick="openLibraryModalWithTab('follows')"><svg class="icon"><use href="#i-bookmark"/></svg><span>Tủ Truyện</span></button>
+    <button type="button" onclick="navigateToRanking('top-day', 'Top Ngày')"><svg class="icon"><use href="#i-chart"/></svg><span>Xếp Hạng</span></button>
+    <button type="button" onclick="openProfile()"><svg class="icon"><use href="#i-user"/></svg><span>Cá Nhân</span></button>
+  </nav>
+
+  <!-- MODAL: ĐĂNG NHẬP / ĐĂNG KÝ (AUTH) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-container" style="max-width: 420px; padding: 2rem;">
+      <button class="modal-close-btn" onclick="closeAuthModal()">✕</button>
+      
+      <!-- Tab Switcher -->
+      <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.5rem; padding-bottom: 0.5rem;">
+        <button id="authTabLogin" class="category-chip active" style="flex: 1;" onclick="switchAuthTab('login')">Đăng Nhập</button>
+        <button id="authTabRegister" class="category-chip" style="flex: 1;" onclick="switchAuthTab('register')">Đăng Ký</button>
+      </div>
+
+      <!-- Form Đăng Nhập -->
+      <form id="loginForm" onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên đăng nhập hoặc Email</label>
+          <input type="text" id="loginUsername" required class="search-input" style="padding-left: 1rem;" placeholder="admin hoặc email..." value="admin" />
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Mật khẩu</label>
+          <input type="password" id="loginPassword" required class="search-input" style="padding-left: 1rem;" placeholder="Nhập mật khẩu..." value="123456" />
+        </div>
+        <button type="submit" class="btn-primary" style="justify-content: center; margin-top: 0.5rem;">
+          Đăng Nhập
+        </button>
+        <div style="margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color);">
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.4rem;">Chọn nhanh tài khoản demo để test quyền:</div>
+          <div class="demo-accounts-bar">
+            <button type="button" class="demo-account-chip" onclick="quickFillAccount('admin', '123456')"><svg class="icon"><use href="#i-shield"/></svg>Admin</button>
+            <button type="button" class="demo-account-chip" onclick="quickFillAccount('dichgia_vip', '123456')"><svg class="icon"><use href="#i-pen"/></svg>Uploader</button>
+            <button type="button" class="demo-account-chip" onclick="quickFillAccount('docgia_01', '123456')">Reader</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Form Đăng Ký -->
+      <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên đăng nhập</label>
+          <input type="text" id="regUsername" required class="search-input" style="padding-left: 1rem;" placeholder="Từ 3 ký tự trở lên..." />
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Email</label>
+          <input type="email" id="regEmail" required class="search-input" style="padding-left: 1rem;" placeholder="vidu@gmail.com..." />
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Mật khẩu</label>
+          <input type="password" id="regPassword" required class="search-input" style="padding-left: 1rem;" placeholder="Tối thiểu 6 ký tự..." />
+        </div>
+        <button type="submit" class="btn-primary" style="justify-content: center; margin-top: 0.5rem;">
+          Tạo Tài Khoản
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: TỦ TRUYỆN & LỊCH SỬ ĐỌC (LIBRARY) -->
+  <section class="app-page management-page" id="libraryPageView">
+    <div class="page-shell" style="max-width: 900px;">
+      <div class="page-title-row"><div><p class="eyebrow">KHÔNG GIAN CÁ NHÂN</p><h1>Tủ Truyện & Tiến Độ Của Bạn</h1></div><button class="btn-secondary" onclick="navigateToHome()"><svg class="icon"><use href="#i-arrow-left"/></svg>Trang Chủ</button></div>
+      
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <button id="libTabFollows" class="category-chip active" onclick="switchLibraryTab('follows')"><svg class="icon"><use href="#i-star"/></svg>Truyện Theo Dõi</button>
+        <button id="libTabHistory" class="category-chip" onclick="switchLibraryTab('history')">Lịch Sử Đọc</button>
+      </div>
+
+      <div id="libraryContent" style="max-height: 400px; overflow-y: auto;">
+        <!-- Render động từ API /api/me/follows hoặc /api/me/history -->
+      </div>
+    </div>
+  </section>
+
+  <!-- USER PROFILE STUDIO -->
+  <section class="app-page management-page" id="profilePageView">
+    <div class="page-shell profile-shell">
+      <div class="page-title-row"><div><p class="eyebrow">USER PROFILE STUDIO</p><h1>Hồ Sơ Cá Nhân</h1><p class="advanced-search-subtitle">Quản lý thông tin, bảo mật và hành trình đọc truyện của bạn.</p></div><button class="btn-secondary" onclick="navigateToHome()"><svg class="icon"><use href="#i-arrow-left"/></svg>Trang Chủ</button></div>
+      <div class="profile-layout">
+        <aside class="profile-tabs" aria-label="Danh mục hồ sơ">
+          <button class="profile-tab active" data-profile-tab="account" onclick="switchProfileTab('account')">👤 Quản lý tài khoản</button>
+          <button class="profile-tab" data-profile-tab="password" onclick="switchProfileTab('password')">🔑 Đổi mật khẩu</button>
+          <button class="profile-tab" data-profile-tab="achievements" onclick="switchProfileTab('achievements')">🏆 Cấp độ &amp; Thành tựu</button>
+          <button class="profile-tab" onclick="openLibraryModalWithTab('follows')">📚 Tủ truyện của tôi</button>
+        </aside>
+        <div class="profile-content">
+          <form id="profileAccountPanel" class="profile-panel active" onsubmit="saveProfile(event)">
+            <h2>Thông tin cá nhân</h2>
+            <div class="profile-avatar-editor"><img id="profileAvatarPreview" src="/images/avatars/default.svg" alt="Ảnh đại diện" onerror="this.onerror=null; this.src='/images/avatars/default.svg';" /><div><label class="btn-secondary profile-file-label">Chọn hình<input id="profileAvatarFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onchange="uploadProfileAvatar(this)" /></label><p>Ảnh đại diện hợp lệ, không vi phạm tiêu chuẩn cộng đồng.</p></div></div>
+            <div class="profile-form-grid"><label>Email<input id="profileEmail" class="search-input" type="email" readonly /></label><label>Tên hiển thị<input id="profileUsername" class="search-input" type="text" readonly /></label><label>Họ &amp; Tên<input id="profileFullName" class="search-input" type="text" maxlength="100" placeholder="Nhập họ và tên" /></label><label>URL ảnh đại diện<input id="profileAvatarUrl" class="search-input" type="url" maxlength="500" placeholder="https://... hoặc /uploads/..." /></label></div>
+            <fieldset class="profile-gender"><legend>Giới tính</legend><label><input type="radio" name="profileGender" value="male" /> Nam</label><label><input type="radio" name="profileGender" value="female" /> Nữ</label><label><input type="radio" name="profileGender" value="other" /> Khác</label></fieldset>
+            <button class="btn-primary" type="submit">💾 Lưu Thay Đổi</button>
+          </form>
+          <form id="profilePasswordPanel" class="profile-panel" onsubmit="changeProfilePassword(event)"><h2>Đổi mật khẩu</h2><p class="profile-panel-copy">Dùng mật khẩu tối thiểu 6 ký tự và không chia sẻ mật khẩu với bất kỳ ai.</p><label>Mật khẩu hiện tại<input id="profileCurrentPassword" class="search-input" type="password" required autocomplete="current-password" /></label><label>Mật khẩu mới<input id="profileNewPassword" class="search-input" type="password" minlength="6" required autocomplete="new-password" /></label><label>Xác nhận mật khẩu mới<input id="profileConfirmPassword" class="search-input" type="password" minlength="6" required autocomplete="new-password" /></label><button class="btn-primary" type="submit">🔑 Cập nhật mật khẩu</button></form>
+          <div id="profileAchievementsPanel" class="profile-panel"><h2>Cấp độ &amp; Thành tựu</h2><div id="profileAchievementsContent" class="achievement-card">Đang tải hành trình đọc của bạn…</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: KÊNH QUẢN LÝ & ĐĂNG TRUYỆN (UPLOADER PORTAL) -->
+  <section class="app-page management-page" id="uploaderPageView">
+    <div class="page-shell" style="max-width: 1080px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <div class="page-title-row"><div><p class="eyebrow">UPLOADER STUDIO</p><h1>Kênh Quản Lý & Đăng Truyện</h1></div><button class="btn-secondary" onclick="navigateToHome()"><svg class="icon"><use href="#i-arrow-left"/></svg>Trang Chủ</button></div>
+        <span style="font-size: 0.8rem; background: rgba(99, 102, 241, 0.2); color: #818cf8; padding: 0.25rem 0.65rem; border-radius: 9999px;">CMS Dịch Giả & Tác Giả</span>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+        <button id="uploaderTabStories" class="category-chip active" onclick="switchUploaderTab('stories')">Truyện Của Tôi</button>
+        <button id="uploaderTabCreate" class="category-chip" onclick="switchUploaderTab('create')">Khai Báo Truyện Mới</button>
+        <button id="uploaderTabChapter" class="category-chip" onclick="switchUploaderTab('chapter')">Đăng Chương Mới</button>
+        <button id="uploaderTabEditStory" class="category-chip" style="display: none;" onclick="switchUploaderTab('editStory')">Sửa Truyện</button>
+        <button id="uploaderTabManageChapters" class="category-chip" style="display: none;" onclick="switchUploaderTab('manageChapters')">Quản Lý & Sửa Chương</button>
+      </div>
+
+      <!-- Tab 1: Danh Sách Truyện -->
+      <div id="uploaderStoriesPanel" style="max-height: 440px; overflow-y: auto;">
+        <!-- Render động từ API /api/uploader/my-stories -->
+      </div>
+
+      <!-- Tab 2: Khai Báo Truyện Mới (UP-MNG-01) -->
+      <form id="uploaderCreateStoryForm" onsubmit="handleCreateStorySubmit(event)" style="display: none; flex-direction: column; gap: 1rem; max-height: 440px; overflow-y: auto; padding-right: 0.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên Truyện *</label>
+            <input type="text" id="newStoryTitle" required class="search-input" style="padding-left: 1rem;" placeholder="VD: Thần Đạo Đan Tôn..." />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên Khác (Nếu có)</label>
+            <input type="text" id="newStoryOtherName" class="search-input" style="padding-left: 1rem;" placeholder="Tên tiếng Anh hoặc Hán Việt..." />
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tác Giả</label>
+            <select id="newStoryAuthorSelect" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;"></select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Hoặc Nhập Tác Giả Mới</label>
+            <input type="text" id="newStoryNewAuthor" class="search-input" style="padding-left: 1rem;" placeholder="Nhập tên tác giả nếu chưa có..." />
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tình Trạng</label>
+            <select id="newStoryStatus" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;">
+              <option value="Đang ra">Đang ra</option>
+              <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Độ Tuổi Giới Hạn</label>
+            <select id="newStoryAgeLimit" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;">
+              <option value="0+">0+ (Mọi lứa tuổi)</option>
+              <option value="13+">13+ (Thiếu niên)</option>
+              <option value="16+">16+ (Thanh niên)</option>
+              <option value="18+">18+ (Trưởng thành)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Quốc Gia / Nguồn Truyện</label>
+            <select id="newStoryCountry" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;"><option value="">Chưa xác định</option><option value="china">Trung Quốc (Manhua)</option><option value="japan">Nhật Bản (Manga)</option><option value="korea">Hàn Quốc (Manhwa)</option><option value="vietnam">Việt Nam</option></select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Chọn Thể Loại (Chọn một hoặc nhiều)</label>
+          <div id="newStoryCategoriesBoxes" style="display: flex; flex-wrap: wrap; gap: 0.5rem; background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <!-- Render danh sách checkbox thể loại -->
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">URL Ảnh Bìa (Để trống sẽ dùng ảnh mặc định)</label>
+          <input type="text" id="newStoryCover" class="search-input" style="padding-left: 1rem;" placeholder="/images/covers/default-cover.svg hoặc link ảnh..." />
+          <label style="display: block; font-size: 0.8rem; margin: 0.6rem 0 0.35rem; color: var(--text-secondary);">Hoặc chọn ảnh bìa từ máy tính (JPG, PNG, WEBP, GIF; tối đa 5MB)</label>
+          <input type="file" id="newStoryCoverFile" accept="image/jpeg,image/png,image/webp,image/gif" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tóm Tắt Giới Thiệu Tác Phẩm</label>
+          <textarea id="newStoryDesc" rows="3" class="search-input" style="width: 100%; border-radius: 8px; padding: 0.75rem; resize: vertical;" placeholder="Nhập tóm tắt truyện..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="justify-content: center; padding: 0.75rem;">
+          Xuất Bản Tác Phẩm
+        </button>
+      </form>
+
+      <!-- Tab 3: Đăng Chương Mới (UP-MNG-02, UP-MNG-03) -->
+      <form id="uploaderCreateChapterForm" onsubmit="handleCreateChapterSubmit(event)" style="display: none; flex-direction: column; gap: 1rem; max-height: 440px; overflow-y: auto; padding-right: 0.5rem;">
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Chọn Bộ Truyện *</label>
+          <select id="chapStorySelect" required style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;"></select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Số Chương (Hỗ trợ số thực: 1, 1.5, 2) *</label>
+            <input type="number" step="0.1" id="chapNumber" required class="search-input" style="padding-left: 1rem;" placeholder="VD: 1 hoặc 1.5" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tiêu Đề Chương</label>
+            <input type="text" id="chapTitle" class="search-input" style="padding-left: 1rem;" placeholder="VD: Khởi Đầu Mới..." />
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Danh Sách Link Ảnh Truyện Tranh (Nếu là Manga/Comic, mỗi dòng 1 link ảnh)</label>
+          <textarea id="chapImagesUrls" rows="4" class="search-input" style="width: 100%; border-radius: 8px; padding: 0.75rem; font-family: monospace; font-size: 0.85rem;" placeholder="/images/chapters/op_1.svg&#10;/images/chapters/op_2.svg&#10;..."></textarea>
+          <input type="file" id="chapImagesFiles" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden />
+          <div class="image-dropzone" data-upload-key="create" data-file-input="chapImagesFiles" data-preview-target="chapImagesPreview" tabindex="0" role="button" aria-label="Kéo thả hoặc chọn ảnh chương">
+            <strong>📥 Kéo &amp; thả ảnh vào đây</strong><span>hoặc bấm để chọn tối đa 200 ảnh · JPG, PNG, WEBP, GIF · tối đa 5MB/ảnh</span>
+          </div>
+          <div class="image-upload-preview" id="chapImagesPreview" aria-live="polite"></div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Bạn không cần link ảnh: ảnh tải lên sẽ được lưu trong hệ thống. Nếu để trống cả link lẫn ảnh, chương sẽ ở Chế độ Truyện Chữ.</p>
+        </div>
+
+        <button type="submit" class="btn-primary" style="justify-content: center; padding: 0.75rem;">
+          Đăng Chương Mới
+        </button>
+      </form>
+
+      <!-- Tab 4: Sửa Thông Tin Truyện (UP-MNG-04) -->
+      <form id="uploaderEditStoryForm" onsubmit="handleUpdateStorySubmit(event)" style="display: none; flex-direction: column; gap: 1rem; max-height: 440px; overflow-y: auto; padding-right: 0.5rem;">
+        <input type="hidden" id="editStoryId" />
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(99, 102, 241, 0.1); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.2);">
+          <strong style="color: var(--accent-primary);">✏️ Chỉnh Sửa Bộ Truyện: <span id="editStoryDisplayTitle">...</span></strong>
+          <button type="button" class="btn-secondary" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" onclick="switchUploaderTab('stories')">✕ Đóng / Quay Lại</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên Truyện *</label>
+            <input type="text" id="editStoryTitle" required class="search-input" style="padding-left: 1rem;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tên Khác</label>
+            <input type="text" id="editStoryOtherName" class="search-input" style="padding-left: 1rem;" />
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tác Giả</label>
+            <select id="editStoryAuthorSelect" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;"></select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Hoặc Đổi Tác Giả Mới</label>
+            <input type="text" id="editStoryNewAuthor" class="search-input" style="padding-left: 1rem;" placeholder="Nhập tên tác giả..." />
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tình Trạng</label>
+            <select id="editStoryStatus" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;">
+              <option value="Đang ra">Đang ra</option>
+              <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Độ Tuổi Giới Hạn</label>
+            <select id="editStoryAgeLimit" style="width: 100%; background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.65rem 0.85rem; outline: none;">
+              <option value="0+">0+ (Mọi lứa tuổi)</option>
+              <option value="13+">13+ (Thiếu niên)</option>
+              <option value="16+">16+ (Thanh niên)</option>
+              <option value="18+">18+ (Trưởng thành)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Thể Loại</label>
+          <div id="editStoryCategoriesBoxes" style="display: flex; flex-wrap: wrap; gap: 0.5rem; background: var(--bg-surface); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color);"></div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">URL Ảnh Bìa</label>
+          <input type="text" id="editStoryCover" class="search-input" style="padding-left: 1rem;" />
+          <label style="display: block; font-size: 0.8rem; margin: 0.6rem 0 0.35rem; color: var(--text-secondary);">Hoặc thay bằng ảnh mới từ máy tính (JPG, PNG, WEBP, GIF; tối đa 5MB)</label>
+          <input type="file" id="editStoryCoverFile" accept="image/jpeg,image/png,image/webp,image/gif" />
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem; color: var(--text-secondary);">Tóm Tắt Giới Thiệu</label>
+          <textarea id="editStoryDesc" rows="3" class="search-input" style="width: 100%; border-radius: 8px; padding: 0.75rem; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="submit" class="btn-primary" style="flex: 1; justify-content: center; padding: 0.75rem;">
+            Lưu Thay Đổi
+          </button>
+          <button type="button" class="btn-secondary" style="padding: 0.75rem 1.25rem;" onclick="switchUploaderTab('stories')">
+            Hủy
+          </button>
+        </div>
+      </form>
+
+      <!-- Tab 5: Quản Lý & Sửa Chương Truyện (UP-MNG-05) -->
+      <div id="uploaderManageChaptersPanel" style="display: none; max-height: 440px; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; background: var(--bg-card); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-primary);">Quản Lý Chương: <span id="manageChaptersStoryTitle" style="color: var(--accent-secondary);">...</span></h4>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Sửa tiêu đề, số chapter hoặc cập nhật danh sách ảnh truyện tranh bị lỗi</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" id="manageChaptersAddBtn">
+              ➕ Thêm Chương Mới
+            </button>
+            <button class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="switchUploaderTab('stories')">
+              ← Quay Lại
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Edit Một Chapter Cụ Thể -->
+        <form id="uploaderEditChapterForm" onsubmit="handleUpdateChapterSubmit(event)" style="display: none; background: var(--bg-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--accent-primary); margin-bottom: 1rem; flex-direction: column; gap: 0.75rem;">
+          <input type="hidden" id="editChapterId" />
+          <input type="hidden" id="editChapterStoryId" />
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong style="color: var(--accent-primary); font-size: 0.95rem;">✏️ Sửa Nội Dung Chương: <span id="editChapterNumberDisplay">...</span></strong>
+            <button type="button" class="btn-secondary" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;" onclick="closeEditChapterForm()">✕ Đóng</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+            <div>
+              <label style="display: block; font-size: 0.82rem; margin-bottom: 0.3rem; color: var(--text-secondary);">Số Chương *</label>
+              <input type="number" step="0.1" id="editChapterNumber" required class="search-input" style="padding-left: 0.85rem;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.82rem; margin-bottom: 0.3rem; color: var(--text-secondary);">Tiêu Đề Chương</label>
+              <input type="text" id="editChapterTitle" class="search-input" style="padding-left: 0.85rem;" />
+            </div>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 0.82rem; margin-bottom: 0.3rem; color: var(--text-secondary);">Danh Sách Link Ảnh (Mỗi dòng 1 link - Sửa hoặc thêm ảnh mới)</label>
+            <textarea id="editChapterImagesUrls" rows="4" class="search-input" style="width: 100%; border-radius: 8px; padding: 0.65rem; font-family: monospace; font-size: 0.82rem;"></textarea>
+            <input type="file" id="editChapterImagesFiles" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden />
+            <div class="image-dropzone image-dropzone-compact" data-upload-key="edit" data-file-input="editChapterImagesFiles" data-preview-target="editChapterImagesPreview" tabindex="0" role="button" aria-label="Thêm ảnh mới cho chương">
+              <strong>📥 Thả ảnh mới để thêm vào chương</strong><span>hoặc bấm để chọn ảnh từ máy tính</span>
+            </div>
+            <div class="image-upload-preview" id="editChapterImagesPreview" aria-live="polite"></div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="submit" class="btn-primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;">
+              Cập Nhật Chương
+            </button>
+            <button type="button" class="btn-secondary" style="padding: 0.45rem 1rem; font-size: 0.85rem;" onclick="closeEditChapterForm()">
+              Hủy
+            </button>
+          </div>
+        </form>
+
+        <!-- Danh Sách Các Chương Của Bộ Truyện -->
+        <div id="uploaderChaptersListContainer" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- Render danh sách chương từ API -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: BẢNG ĐIỀU KHIỂN QUẢN TRỊ VIÊN (ADMIN DASHBOARD) -->
+  <section class="app-page management-page" id="adminPageView">
+    <div class="page-shell" style="max-width: 1120px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <div class="page-title-row"><div><p class="eyebrow">SYSTEM CONTROL</p><h1>Bảng Quản Trị Hệ Thống</h1></div><button class="btn-secondary" onclick="navigateToHome()"><svg class="icon"><use href="#i-arrow-left"/></svg>Trang Chủ</button></div>
+        <span style="font-size: 0.8rem; background: rgba(239, 68, 68, 0.2); color: #f87171; padding: 0.25rem 0.65rem; border-radius: 9999px;">Quyền Tối Cao (Admin)</span>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+        <button id="adminTabStats" class="category-chip active" onclick="switchAdminTab('stats')">Thống Kê</button>
+        <button id="adminTabModeration" class="category-chip" onclick="switchAdminTab('moderation')">Duyệt Truyện <span id="adminPendingBadge" style="display:none; background:#ef4444; color:#fff; padding:0.1rem 0.45rem; border-radius:9999px; font-size:0.72rem; margin-left:0.25rem;">0</span></button>
+        <button id="adminTabUsers" class="category-chip" onclick="switchAdminTab('users')">Người Dùng & Phân Quyền</button>
+        <button id="adminTabComments" class="category-chip" onclick="switchAdminTab('comments')">Kiểm Duyệt Bình Luận</button>
+        <button id="adminTabTaxonomy" class="category-chip" onclick="switchAdminTab('taxonomy')">Thể Loại & Tác Giả</button>
+      </div>
+
+      <!-- Tab Duyệt Truyện (Content Moderation) -->
+      <div id="adminModerationPanel" style="display: none; max-height: 440px; overflow-y: auto;">
+        <!-- Render danh sách truyện chờ duyệt -->
+      </div>
+
+      <!-- Tab 1: Dashboard Stats -->
+      <div id="adminStatsPanel" style="max-height: 440px; overflow-y: auto;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+            <div class="admin-stat-icon"><svg class="icon"><use href="#i-book"/></svg></div>
+            <div id="statStories" style="font-size: 1.5rem; font-weight: 700; color: #818cf8;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Tổng Truyện</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+            <div class="admin-stat-icon"><svg class="icon"><use href="#i-eye"/></svg></div>
+            <div id="statViews" style="font-size: 1.5rem; font-weight: 700; color: #34d399;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Lượt Đọc</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+            <div class="admin-stat-icon"><svg class="icon"><use href="#i-shield"/></svg></div>
+            <div id="statUsers" style="font-size: 1.5rem; font-weight: 700; color: #38bdf8;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Thành Viên</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+            <div class="admin-stat-icon"><svg class="icon"><use href="#i-chart"/></svg></div>
+            <div id="statComments" style="font-size: 1.5rem; font-weight: 700; color: #fbbf24;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Bình Luận</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+            <div class="admin-stat-icon"><svg class="icon"><use href="#i-chart"/></svg></div>
+            <div id="statChapters" style="font-size: 1.5rem; font-weight: 700; color: #f472b6;">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Chương Đã Đăng</div>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-color);">
+          <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Trạng Thái An Toàn Hệ Thống</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+            • Kết nối MySQL Pool: <strong style="color: #34d399;">Hoạt động ổn định</strong><br/>
+            • Xác thực mật khẩu: <strong style="color: #38bdf8;">Bcrypt Hashed</strong><br/>
+            • Mã hóa phiên: <strong style="color: #818cf8;">JWT Token Bearer (7 ngày)</strong><br/>
+            • Hệ thống phân quyền RBAC: <strong style="color: #f472b6;">3 Cấp (Admin, Uploader, Reader)</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Quản Lý Người Dùng & Phân Quyền (AD-SYS-02) -->
+      <div id="adminUsersPanel" style="display: none; max-height: 440px; overflow-y: auto;">
+        <!-- Render danh sách người dùng từ API /api/admin/users -->
+      </div>
+
+      <!-- Tab 3: Kiểm Duyệt Bình Luận (AD-SYS-04) -->
+      <div id="adminCommentsPanel" style="display: none; max-height: 440px; overflow-y: auto;">
+        <!-- Render danh sách bình luận từ API /api/admin/comments -->
+      </div>
+
+      <!-- Tab 4: Thể Loại & Tác Giả (AD-SYS-01) -->
+      <div id="adminTaxonomyPanel" style="display: none; max-height: 440px; overflow-y: auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Thêm Thể Loại</h4>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <input type="text" id="adminNewCatName" class="search-input" style="padding-left: 0.85rem;" placeholder="Tên thể loại..." />
+              <button class="btn-primary" onclick="adminAddCategory()" style="padding: 0.5rem 1rem;">Thêm</button>
+            </div>
+            <div id="adminCategoriesList" style="max-height: 250px; overflow-y: auto;"></div>
+          </div>
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Thêm Tác Giả</h4>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <input type="text" id="adminNewAuthorName" class="search-input" style="padding-left: 0.85rem;" placeholder="Tên tác giả..." />
+              <button class="btn-primary" onclick="adminAddAuthor()" style="padding: 0.5rem 1rem;">Thêm</button>
+            </div>
+            <div id="adminAuthorsList" style="max-height: 250px; overflow-y: auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border-color); padding: 2.5rem 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-top: 2rem;">
+    <p style="margin-bottom: 0.5rem;"><strong>MangaDex</strong> - Nền tảng Đọc Truyện Online Hiện Đại</p>
+    <p>Thiết kế giao diện hiện đại, tối ưu trải nghiệm đọc, hỗ trợ Dark Mode & Responsive đa thiết bị.</p>
+  </footer>
+
+  <!-- Floating Back to Top Button (TruyenTranhNet style) -->
+  <button id="backToTopBtn" class="back-to-top-btn" title="Cuộn lên đầu trang" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    ↑
+  </button>
+
+  <!-- Script điều khiển -->
+  <script src="/javascripts/main.js"></script>
+</body>
+</html>
