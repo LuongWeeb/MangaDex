@@ -174,4 +174,4 @@ npm test
 
 ## 📜 Giấy Phép (License)
 
-Dự án được phát triển phục vụ mục đích nghiên cứu, học tập và bảo vệ đồ án tốt nghiệp tại Trường Đại học Sư phạm Kỹ thuật Hưng Yên.
+Dự án được phát triển phục vụ mục đích nghiên cứu, học tập và bảo vệ đồ án 4 tại Trường Đại học Sư phạm Kỹ thuật Hưng Yên.
